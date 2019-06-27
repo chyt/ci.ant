@@ -50,8 +50,12 @@ public class EmbeddedServerInfo {
     public boolean equals(EmbeddedServerInfo info) {
         return 
             this.serverName.equals(info.serverName)
-            && this.userDir.getAbsolutePath().equals(info.userDir.getAbsolutePath())
-            && this.outputDir.getAbsolutePath().equals(info.outputDir.getAbsolutePath());
+            && ( (this.userDir == null && info.userDir == null) ||
+                 (this.userDir != null && info.userDir != null && 
+                  this.userDir.getAbsolutePath().equals(info.userDir.getAbsolutePath())) )
+            && ( (this.outputDir == null && info.outputDir == null) ||
+                 (this.outputDir != null && info.outputDir != null && 
+                  this.outputDir.getAbsolutePath().equals(info.outputDir.getAbsolutePath())) );
     }
 
     public static class EmbeddedServers {
