@@ -49,13 +49,19 @@ public class EmbeddedServerInfo {
 
     public boolean equals(EmbeddedServerInfo info) {
         return 
-            this.serverName.equals(info.serverName)
-            && ( (this.userDir == null && info.userDir == null) ||
-                 (this.userDir != null && info.userDir != null && 
-                  this.userDir.getAbsolutePath().equals(info.userDir.getAbsolutePath())) )
-            && ( (this.outputDir == null && info.outputDir == null) ||
-                 (this.outputDir != null && info.outputDir != null && 
-                  this.outputDir.getAbsolutePath().equals(info.outputDir.getAbsolutePath())) );
+            this.serverName.equals(info.serverName) &&
+            filesEqual(this.userDir, info.userDir) &&
+            filesEqual(this.outputDir, info.outputDir);
+    }
+    
+    private boolean filesEqual(File file1, File file2) {
+        if(file1 == null && file2 == null) {
+            return true;
+        }
+        if(file1 != null && file2 != null && file1.getAbsolutePath().equals(file2.getAbsolutePath())) {
+            return true;
+        }
+        return false;
     }
 
     public static class EmbeddedServers {
